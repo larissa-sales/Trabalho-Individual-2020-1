@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  github-profile-indexer-client:
+    container_name: github-profile-indexer-client
+    restart: always
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    ports: 
+      - 8080:8080
+    volumes:
+      - ./client:/client
+    command: ['yarn', 'dev']
