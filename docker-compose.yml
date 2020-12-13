@@ -12,3 +12,32 @@ services:
     volumes:
       - ./client:/client
     command: ['yarn', 'dev']
+
+  github-profile-indexer-api:
+    container_name: github-profile-indexer-api
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
+    volumes:
+      - ./api:/api
+    command: bash -c "rake db:create && rails db:migrate && rails server -p 3000 -b '0.0.0.0'"
+    env_file: ./api/db.env
+    depends_on:
+      - db
+    networks:
+      - network
+
+  db:
+    image: postgres:13-alpine
+    volumes: 
+      - db:/var/lib/postgresql/data
+    env_file: ./api/db.env
+    networks:
+      - network
+
+volumes: 
+  db:
+networks: 
+  network:
