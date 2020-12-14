@@ -7,3 +7,5 @@ Just a test 1!
 Just a test 2!
 
 Testing code coverage
+
+Testing code coverage 2
