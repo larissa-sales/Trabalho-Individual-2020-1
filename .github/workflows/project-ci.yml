@@ -6,9 +6,12 @@ jobs:
   client-frontend:
 
     runs-on: ubuntu-latest
+    
+    env:
+      PROJECT_PATH: ./client
 
     steps:
-      - name: Set up
+      - name: Check repository
         uses: actions/checkout@v2
 
       - name: Install Dependencies
@@ -25,6 +28,9 @@ jobs:
   api-backend:
   
     runs-on: ubuntu-latest
+    
+    env:
+      PROJECT_PATH: ./api
 
     steps:
       - name: Check out Git repository
