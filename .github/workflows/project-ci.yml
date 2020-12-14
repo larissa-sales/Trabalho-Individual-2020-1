@@ -28,6 +28,11 @@ jobs:
 
       - name: Build
         run: yarn build
+      
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: <1f2fef59f5dc1524bce6616f1f2d0711b79efd6b5fd1935bfdae9718890f76d3>
 
   api-backend:
   
