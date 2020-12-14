@@ -16,10 +16,6 @@ jobs:
         with:
           node-version: '14.15.1'
 
-      - name: Run unit tests
-        working-directory: client
-        run: yarn test:unit
-
       - name: Set up environment
         run: docker-compose up --build
 
@@ -36,13 +32,8 @@ jobs:
         with:
           ruby-version: 2.5.x
           
-      - name: Build
-        working-directory: api
-        run: |
-          gem install bundler
-          bundle exec rails db:create
-          bundle exec rails db:migrate
-          
-      - name: Run tests
-        working-directory: api
-        run: budle exec rails test
+      - name: Create database
+        run: docker-compose run github-profile-indexer-api rake db:create
+
+      - name: Run migrations
+        run: docker-compose run github-profile-indexer-api rake db:migrate
