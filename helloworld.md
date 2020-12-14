@@ -9,3 +9,5 @@ Just a test 2!
 Testing code coverage
 
 Testing code coverage 2
+
+Testing code coverage 3
