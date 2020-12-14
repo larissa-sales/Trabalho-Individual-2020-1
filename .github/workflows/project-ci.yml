@@ -1,0 +1,45 @@
+name: Github profile indexer CI
+
+on: [push, pull_request]
+
+jobs:
+  client-frontend:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.15.1'
+
+      - name: Run unit tests
+        run: yarn test:unit
+
+      - name: Set up environment
+        run: docker-compose up --build
+
+  api-backend:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.5.x
+          
+      - name: Build
+        run: |
+          gem install bundler
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+          
+      - name: Run tests
+        run: budle exec rails test
