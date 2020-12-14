@@ -6,6 +6,10 @@ jobs:
   client-frontend:
 
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: client
 
     steps:
       - name: Check repository
@@ -16,15 +20,21 @@ jobs:
         with:
           node-version: '14.15.1'
 
-      - name: Set up environment
-        run: docker-compose up --build
+      - name: Install Node.js dependencies
+        run: yarn
+
+      - name: Run Unit Tests
+        run: yarn test:unit
+
+      - name: Build
+        run: yarn build
 
   api-backend:
   
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out Git repository
+      - name: Check repository
         uses: actions/checkout@v1
 
       - name: Set up Ruby
