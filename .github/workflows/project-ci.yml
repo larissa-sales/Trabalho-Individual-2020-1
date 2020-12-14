@@ -7,8 +7,9 @@ jobs:
 
     runs-on: ubuntu-latest
     
-    env:
-      PROJECT_PATH: ./client
+    defaults:
+      run:
+        working-directory: client
 
     steps:
       - name: Check repository
@@ -29,8 +30,9 @@ jobs:
   
     runs-on: ubuntu-latest
     
-    env:
-      PROJECT_PATH: ./api
+    defaults:
+      run:
+        working-directory: api
 
     steps:
       - name: Check out Git repository
