@@ -6,10 +6,6 @@ jobs:
   client-frontend:
 
     runs-on: ubuntu-latest
-    
-    defaults:
-      run:
-        working-directory: ./client
 
     steps:
       - name: Check repository
@@ -21,6 +17,7 @@ jobs:
           node-version: '14.15.1'
 
       - name: Run unit tests
+        working-directory: client
         run: yarn test:unit
 
       - name: Set up environment
@@ -29,10 +26,6 @@ jobs:
   api-backend:
   
     runs-on: ubuntu-latest
-    
-    defaults:
-      run:
-        working-directory: ./api
 
     steps:
       - name: Check out Git repository
@@ -44,10 +37,12 @@ jobs:
           ruby-version: 2.5.x
           
       - name: Build
+        working-directory: api
         run: |
           gem install bundler
           bundle exec rails db:create
           bundle exec rails db:migrate
           
       - name: Run tests
+        working-directory: api
         run: budle exec rails test
